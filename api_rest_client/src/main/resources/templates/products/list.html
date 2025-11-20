@@ -6,12 +6,14 @@
 <div th:replace="fragments/layout :: alerts(${success}, ${error})"></div>
 
 <a class="btn" th:href="@{/{path}/new(path=${basePath})}">Create New</a>
-
 <table>
   <thead>
   <tr>
     <th>ID</th>
     <th>Name</th>
+    <th>Price</th>
+    <th>Category</th>
+    <th>Brand</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -19,6 +21,9 @@
   <tr th:each="entity : ${entities}">
     <td th:text="${entity.id}">1</td>
     <td th:text="${entity.name}">Name</td>
+    <td th:text="${entity.price}">0.00</td>
+    <td th:text="${entity.category?.name}">N/A</td>
+    <td th:text="${entity.brand?.name}">N/A</td>
     <td>
       <a th:href="@{/{path}/{id}(path=${basePath},id=${entity.id})}">View</a>
       <a th:href="@{/{path}/edit/{id}(path=${basePath},id=${entity.id})}">Edit</a>
@@ -27,6 +32,7 @@
   </tr>
   </tbody>
 </table>
+
 <div th:replace="fragments/layout :: actions(${basePath})"></div>
 <div th:replace="fragments/layout :: footer"></div>
 </body>

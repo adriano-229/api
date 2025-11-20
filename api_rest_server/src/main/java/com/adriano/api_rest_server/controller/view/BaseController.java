@@ -30,7 +30,7 @@ public abstract class BaseController<T extends BaseEntity, ID> {
         model.addAttribute("entities", entities);
         model.addAttribute("entityName", entityName);
         model.addAttribute("basePath", basePath);
-        return basePath + "/list";
+        return template("list");
     }
 
     @GetMapping("/{id}")
@@ -43,8 +43,12 @@ public abstract class BaseController<T extends BaseEntity, ID> {
         model.addAttribute("entity", entity.get());
         model.addAttribute("entityName", entityName);
         model.addAttribute("basePath", basePath);
-        return basePath + "/view";
+        model.addAttribute("isReadOnly", true);
+        model.addAttribute("isEdit", false);
+        return template("form");
     }
+
+
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
@@ -52,7 +56,8 @@ public abstract class BaseController<T extends BaseEntity, ID> {
         model.addAttribute("entityName", entityName);
         model.addAttribute("basePath", basePath);
         model.addAttribute("isEdit", false);
-        return basePath + "/form";
+        model.addAttribute("isReadOnly", false);
+        return template("form");
     }
 
     @GetMapping("/edit/{id}")
@@ -66,7 +71,8 @@ public abstract class BaseController<T extends BaseEntity, ID> {
         model.addAttribute("entityName", entityName);
         model.addAttribute("basePath", basePath);
         model.addAttribute("isEdit", true);
-        return basePath + "/form";
+        model.addAttribute("isReadOnly", false);
+        return template("form");
     }
 
     @PostMapping
@@ -100,4 +106,18 @@ public abstract class BaseController<T extends BaseEntity, ID> {
     }
 
     protected abstract T createNewInstance();
+
+    protected String template(String viewName) {
+        return basePath + "/" + viewName;
+    }
+
+    @ModelAttribute("entityName")
+    public String modelEntityName() {
+        return entityName;
+    }
+
+    @ModelAttribute("basePath")
+    public String modelBasePath() {
+        return basePath;
+    }
 }

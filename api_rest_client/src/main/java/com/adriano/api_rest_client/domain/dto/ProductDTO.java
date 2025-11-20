@@ -3,8 +3,11 @@ package com.adriano.api_rest_client.domain.dto;
 import lombok.Data;
 
 @Data
-public class CategoryDTO {
+public class ProductDTO {
     private Long id;
     private String name;
-
+    private double price;
+    private CategoryDTO category;
+    private BrandDTO brand;
 }
+

@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title th:text="${entityName} + ' Form'">Entity Form</title>
-</head>
+<head th:replace="fragments/layout :: head(${isReadOnly} ? ${entityName} + ' Details' : ${entityName} + ' Form')"></head>
 <body>
-<h1 th:text="${isEdit ? 'Edit ' + entityName : 'Create ' + entityName}">Entity Form</h1>
+<header th:replace="fragments/layout :: header(${isReadOnly} ? ${entityName} + ' Details' : (${isEdit} ? 'Edit ' + entityName : 'Create ' + entityName))"></header>
+<div th:replace="fragments/layout :: alerts(${success}, ${error})"></div>
 
-<form method="post"
-      th:action="${isEdit} ? @{/{path}/{id}(path=${basePath},id=${entity.id})} : @{/{path}(path=${basePath})}" th:object="${entity}">
+<div th:if="${isReadOnly}">
+  <p><strong>ID:</strong> <span th:text="${entity.id}">1</span></p>
+  <p><strong>Name:</strong> <span th:text="${entity.name}">Name</span></p>
+  <div class="actions">
+    <a class="btn" th:href="@{/{path}/edit/{id}(path=${basePath},id=${entity.id})}">Edit</a>
+  </div>
+</div>
 
-  <input th:field="*{id}" th:if="${isEdit}" type="hidden"/>
+<form th:if="${!isReadOnly}" method="post"
+      th:action="${isEdit} ? @{/{path}/{id}(path=${basePath},id=${entity.id})} : @{/{path}(path=${basePath})}"
+      th:object="${entity}">
+
+  <input th:if="${isEdit}" th:field="*{id}" type="hidden"/>
 
   <div>
     <label for="name">Name:</label>
     <input id="name" required th:field="*{name}" type="text"/>
   </div>
 
-  <button th:text="${isEdit ? 'Update' : 'Create'}" type="submit">Submit</button>
-  <a th:href="@{/{path}(path=${basePath})}">Cancel</a>
+  <div class="actions">
+    <button th:text="${isEdit ? 'Update' : 'Create'}" type="submit">Submit</button>
+  </div>
 </form>
+
+<div th:replace="fragments/layout :: actions(${basePath})"></div>
+<div th:replace="fragments/layout :: footer"></div>
 </body>
 </html>
-

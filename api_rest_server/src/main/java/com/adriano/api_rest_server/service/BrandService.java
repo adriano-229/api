@@ -7,7 +7,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrandService extends BaseService<Brand, Long> {
 
-    public BrandService(BaseRepository<Brand, Long> repository) {
+    private final ProductService productService;
+
+    public BrandService(BaseRepository<Brand, Long> repository, ProductService productService) {
         super(repository);
+        this.productService = productService;
+    }
+
+    @Override
+    public void afterDelete(Long id) {
+        productService.nullifyBrand(id);
     }
 }

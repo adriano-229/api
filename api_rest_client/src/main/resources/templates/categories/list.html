@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Category List</title>
-</head>
+<head th:replace="fragments/layout :: head(${entityName} + ' List')"></head>
 <body>
-<h1>Category List</h1>
+<header th:replace="fragments/layout :: header(${entityName} + ' List')"></header>
+<div th:replace="fragments/layout :: alerts(${success}, ${error})"></div>
 
-<a class="btn" th:href="@{/categories/new}">Create New</a>
+<a class="btn" th:href="@{/{path}/new(path=${basePath})}">Create New</a>
 
 <table>
   <thead>
   <tr>
     <th>ID</th>
     <th>Name</th>
-    <th>Added Data</th>
     <th>Actions</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="category : ${categories}">
-    <td th:text="${category.id}"></td>
-    <td th:text="${category.nameCategory}">Name</td>
-    <td th:text="${category.consumerDescription}">NOTHING</td>
+  <tr th:each="entity : ${entities}">
+    <td th:text="${entity.id}"></td>
+    <td th:text="${entity.name}">Name</td>
     <td>
-      <a th:href="@{/categories/{id}(id=${category.id})}">View</a>
-      <a th:href="@{/categories/edit/{id}(id=${category.id})}">Edit</a>
-      <a th:href="@{/categories/delete/{id}(id=${category.id})}">Delete</a>
+      <a th:href="@{/{path}/{id}(path=${basePath},id=${entity.id})}">View</a>
+      <a th:href="@{/{path}/edit/{id}(path=${basePath},id=${entity.id})}">Edit</a>
+      <a th:href="@{/{path}/delete/{id}(path=${basePath},id=${entity.id})}">Delete</a>
     </td>
   </tr>
   </tbody>
 </table>
+
+<div th:replace="fragments/layout :: actions(${basePath})"></div>
+<div th:replace="fragments/layout :: footer"></div>
 </body>
 </html>
-

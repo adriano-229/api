@@ -1,18 +1,19 @@
 package com.adriano.api_rest_client.persistence.rest;
 
-import com.adriano.api_rest_client.domain.dto.CategoryDTO;
+import com.adriano.api_rest_client.domain.dto.ProductDTO;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class CategoryRestDAO extends BaseRestDAO<CategoryDTO, Long> {
+public class ProductRestDAO extends BaseRestDAO<ProductDTO, Long> {
 
-    public CategoryRestDAO(RestTemplate restTemplate) {
+    public ProductRestDAO(RestTemplate restTemplate) {
         super(restTemplate,
-                "/categories",
-                CategoryDTO.class,
+                "/products",
+                ProductDTO.class,
                 new ParameterizedTypeReference<>() {
                 });
     }
 }
+

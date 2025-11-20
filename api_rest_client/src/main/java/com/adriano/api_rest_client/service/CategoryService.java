@@ -5,13 +5,14 @@ import com.adriano.api_rest_client.persistence.rest.CategoryRestDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /*
 Service class for managing categories business logic via REST API.
  */
 @Service
-public class CategoryService {
+public class CategoryService implements CrudClientService<CategoryDTO, Long> {
 
     private final CategoryRestDAO categoryRestDAO;
 
@@ -19,24 +20,28 @@ public class CategoryService {
         this.categoryRestDAO = categoryRestDAO;
     }
 
-    public CategoryDTO getCategory(Long id) {
-        return categoryRestDAO.getCategory(id);
+    @Override
+    public List<CategoryDTO> findAll() {
+        return categoryRestDAO.list();
     }
 
-    public List<CategoryDTO> listCategories() {
-        return categoryRestDAO.listCategories();
+    @Override
+    public Optional<CategoryDTO> findById(Long id) {
+        return Optional.ofNullable(categoryRestDAO.get(id));
     }
 
-    public void createCategory(CategoryDTO category) {
-        categoryRestDAO.createCategory(category);
+    @Override
+    public CategoryDTO create(CategoryDTO entity) {
+        return categoryRestDAO.create(entity);
     }
 
-    public void updateCategory(Long id, CategoryDTO category) {
-        categoryRestDAO.updateCategory(id, category);
+    @Override
+    public CategoryDTO update(Long id, CategoryDTO entity) {
+        return categoryRestDAO.update(id, entity);
     }
 
-    public void deleteCategory(Long id) {
-        categoryRestDAO.deleteCategory(id);
+    @Override
+    public void delete(Long id) {
+        categoryRestDAO.delete(id);
     }
-
 }

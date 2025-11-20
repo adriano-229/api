@@ -7,7 +7,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryService extends BaseService<Category, Long> {
 
-    public CategoryService(BaseRepository<Category, Long> repository) {
+    private final ProductService productService;
+
+    public CategoryService(BaseRepository<Category, Long> repository, ProductService productService) {
         super(repository);
+        this.productService = productService;
+    }
+
+    @Override
+    public void afterDelete(Long id) {
+        productService.nullifyCategory(id);
     }
 }
