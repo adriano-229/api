@@ -15,7 +15,7 @@ public class CategoryService extends BaseService<Category, Long> {
     }
 
     @Override
-    public void afterDelete(Long id) {
+    public void beforeDelete(Long id) {
         productService.nullifyCategory(id);
     }
 }

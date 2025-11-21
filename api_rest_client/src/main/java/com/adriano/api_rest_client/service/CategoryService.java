@@ -12,7 +12,7 @@ import java.util.Optional;
 Service class for managing categories business logic via REST API.
  */
 @Service
-public class CategoryService implements CrudClientService<CategoryDTO, Long> {
+public class CategoryService implements CrudHooks<CategoryDTO, Long> {
 
     private final CategoryRestDAO categoryRestDAO;
 
@@ -36,8 +36,8 @@ public class CategoryService implements CrudClientService<CategoryDTO, Long> {
     }
 
     @Override
-    public CategoryDTO update(Long id, CategoryDTO entity) {
-        return categoryRestDAO.update(id, entity);
+    public void update(Long id, CategoryDTO entity) {
+        categoryRestDAO.update(id, entity);
     }
 
     @Override

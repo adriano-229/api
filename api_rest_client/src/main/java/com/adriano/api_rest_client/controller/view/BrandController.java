@@ -13,6 +13,7 @@ public class BrandController extends BaseController<BrandDTO, Long> {
     public BrandController(BrandService brandService) {
         super(brandService, "Brand", "brands");
     }
+
     @Override
     protected BrandDTO createNewInstance() {
         return new BrandDTO();

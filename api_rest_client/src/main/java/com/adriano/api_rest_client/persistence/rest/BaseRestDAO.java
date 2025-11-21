@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-public abstract class BaseRestDAO<T, ID> {
+public abstract class BaseRestDAO<T, ID>  {
 
     protected final RestTemplate restTemplate;
     private final String resourcePath;
@@ -35,16 +35,13 @@ public abstract class BaseRestDAO<T, ID> {
         return restTemplate.postForObject(resourcePath, entity, dtoClass);
     }
 
-    public T update(ID id, T entity) {
+    public void update(ID id, T entity) {
         restTemplate.put(resourcePath + "/{id}", entity, id);
-        return get(id);
+        get(id);
     }
 
     public void delete(ID id) {
         restTemplate.delete(resourcePath + "/{id}", id);
     }
 
-    protected String getResourcePath() {
-        return resourcePath;
-    }
 }

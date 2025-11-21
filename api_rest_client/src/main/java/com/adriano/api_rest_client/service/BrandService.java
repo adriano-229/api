@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BrandService implements CrudClientService<BrandDTO, Long> {
+public class BrandService extends BaseService<BrandDTO, Long> {
 
     private final BrandRestDAO brandRestDAO;
 
@@ -17,7 +17,7 @@ public class BrandService implements CrudClientService<BrandDTO, Long> {
     }
 
     @Override
-    public List<BrandDTO> findAll() {
+    public List<BrandDTO> getAll() {
         return brandRestDAO.list();
     }
 
@@ -32,8 +32,8 @@ public class BrandService implements CrudClientService<BrandDTO, Long> {
     }
 
     @Override
-    public BrandDTO update(Long id, BrandDTO entity) {
-        return brandRestDAO.update(id, entity);
+    public void update(Long id, BrandDTO entity) {
+        brandRestDAO.update(id, entity);
     }
 
     @Override

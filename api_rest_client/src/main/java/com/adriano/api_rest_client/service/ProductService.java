@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService implements CrudClientService<ProductDTO, Long> {
+public class ProductService implements CrudHooks<ProductDTO, Long> {
 
     private final ProductRestDAO productRestDAO;
 
@@ -32,8 +32,8 @@ public class ProductService implements CrudClientService<ProductDTO, Long> {
     }
 
     @Override
-    public ProductDTO update(Long id, ProductDTO entity) {
-        return productRestDAO.update(id, entity);
+    public void update(Long id, ProductDTO entity) {
+        productRestDAO.update(id, entity);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.adriano.api_rest_client.controller.view;
 
-import com.adriano.api_rest_client.service.CrudClientService;
+import com.adriano.api_rest_client.domain.dto.BaseDTO;
+import com.adriano.api_rest_client.service.BaseService;
+import com.adriano.api_rest_client.service.CrudHooks;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,13 +12,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
-public abstract class BaseController<T, ID> {
+public abstract class BaseController<T extends BaseDTO, ID> {
 
     protected final String entityName;
     protected final String basePath;
-    private final CrudClientService<T, ID> service;
+    private final BaseService<T, ID> service;
 
-    protected BaseController(CrudClientService<T, ID> service, String entityName, String basePath) {
+    protected BaseController(BaseService<T, ID> service, String entityName, String basePath) {
         this.service = service;
         this.entityName = entityName;
         this.basePath = basePath;
@@ -28,7 +30,7 @@ public abstract class BaseController<T, ID> {
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("entities", service.findAll());
+        model.addAttribute("entities", service.getAll());
         model.addAttribute("isList", true);
         model.addAttribute("basePath", basePath);
         model.addAttribute("entityName", entityName);

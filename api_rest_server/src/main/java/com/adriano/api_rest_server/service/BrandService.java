@@ -15,7 +15,7 @@ public class BrandService extends BaseService<Brand, Long> {
     }
 
     @Override
-    public void afterDelete(Long id) {
+    public void beforeDelete(Long id) {
         productService.nullifyBrand(id);
     }
 }

@@ -24,12 +24,16 @@ public abstract class BaseController<T extends BaseEntity, ID> {
         this.basePath = entityNamePlural.toLowerCase();
     }
 
+    private static void addCommon(Model model, String entityName, String basePath) {
+        model.addAttribute("entityName", entityName);
+        model.addAttribute("basePath", basePath);
+    }
+
     @GetMapping
     public String listAll(Model model) {
         List<T> entities = baseService.findAll();
         model.addAttribute("entities", entities);
-        model.addAttribute("entityName", entityName);
-        model.addAttribute("basePath", basePath);
+        addCommon(model, entityName, basePath);
         return template("list");
     }
 
@@ -41,20 +45,16 @@ public abstract class BaseController<T extends BaseEntity, ID> {
             return "redirect:/" + basePath;
         }
         model.addAttribute("entity", entity.get());
-        model.addAttribute("entityName", entityName);
-        model.addAttribute("basePath", basePath);
+        addCommon(model, entityName, basePath);
         model.addAttribute("isReadOnly", true);
         model.addAttribute("isEdit", false);
         return template("form");
     }
 
-
-
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("entity", createNewInstance());
-        model.addAttribute("entityName", entityName);
-        model.addAttribute("basePath", basePath);
+        addCommon(model, entityName, basePath);
         model.addAttribute("isEdit", false);
         model.addAttribute("isReadOnly", false);
         return template("form");
@@ -68,8 +68,7 @@ public abstract class BaseController<T extends BaseEntity, ID> {
             return "redirect:/" + basePath;
         }
         model.addAttribute("entity", entity.get());
-        model.addAttribute("entityName", entityName);
-        model.addAttribute("basePath", basePath);
+        addCommon(model, entityName, basePath);
         model.addAttribute("isEdit", true);
         model.addAttribute("isReadOnly", false);
         return template("form");
@@ -77,8 +76,8 @@ public abstract class BaseController<T extends BaseEntity, ID> {
 
     @PostMapping
     public String create(@ModelAttribute T entity, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("success", entityName + " created successfully");
         baseService.save(entity);
+        redirectAttributes.addFlashAttribute("success", entityName + " created successfully");
         return "redirect:/" + basePath;
     }
 
@@ -109,15 +108,5 @@ public abstract class BaseController<T extends BaseEntity, ID> {
 
     protected String template(String viewName) {
         return basePath + "/" + viewName;
-    }
-
-    @ModelAttribute("entityName")
-    public String modelEntityName() {
-        return entityName;
-    }
-
-    @ModelAttribute("basePath")
-    public String modelBasePath() {
-        return basePath;
     }
 }

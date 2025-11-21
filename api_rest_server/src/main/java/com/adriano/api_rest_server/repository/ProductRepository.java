@@ -8,5 +8,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends BaseRepository<Product, Long> {
     List<Product> findByCategoryId(Long categoryId);
+
     List<Product> findByBrandId(Long brandId);
 }
