@@ -1,7 +1,5 @@
 package com.example.server.domain.dto;
 
-import com.example.server.domain.entity.BaseEntity;
-import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

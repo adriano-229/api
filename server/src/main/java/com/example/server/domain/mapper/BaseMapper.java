@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface BaseMapper<E extends BaseEntity, D extends BaseDto> {
 
-    E toEntity(D dto);
-
     D toDto(E entity);
+
+    E toEntity(D dto);
 
     List<D> toDtoList(List<E> entities);
 }

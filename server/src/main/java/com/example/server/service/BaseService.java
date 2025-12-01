@@ -38,12 +38,13 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID ex
 
     @Transactional
     public D create(D dto) {
-        beforeCreate(dto);
         E entity = baseMapper.toEntity(dto);
+        beforeCreate(dto, entity);
         E saved = baseRepository.save(entity);
         afterCreate(saved);
         return baseMapper.toDto(saved);
     }
+
 
     @Transactional
     public Optional<D> update(ID id, D dto) {

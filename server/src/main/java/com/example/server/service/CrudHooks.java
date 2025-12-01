@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public interface CrudHooks<E extends BaseEntity, D extends BaseDto, ID extends Serializable> {
 
-    default void beforeCreate(D dto) {
+    default void beforeCreate(D dto, E entity) {
     }
 
     default void afterCreate(E entity) {
