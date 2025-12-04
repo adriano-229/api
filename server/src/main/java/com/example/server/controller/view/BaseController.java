@@ -20,10 +20,10 @@ public abstract class BaseController<E extends BaseEntity, D extends BaseDto, ID
     protected final String entityName;
     protected final String basePath;
 
-    protected BaseController(BaseService<E, D, ID> baseService, String entityName, String basePath) {
+    protected BaseController(BaseService<E, D, ID> baseService, String entityName, String entityNamePlural) {
         this.baseService = baseService;
         this.entityName = entityName;
-        this.basePath = basePath;
+        this.basePath = entityNamePlural.toLowerCase();
     }
 
 
@@ -74,6 +74,7 @@ public abstract class BaseController<E extends BaseEntity, D extends BaseDto, ID
         model.addAttribute("isReadOnly", false);
         model.addAttribute("isEdit", true);
         return template("form");
+        // TODO: centralize exception handling using @ControllerAdvice
     }
 
     @PostMapping

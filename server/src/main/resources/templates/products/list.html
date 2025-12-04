@@ -22,7 +22,7 @@
     <td th:text="${entity.id}">1</td>
     <td th:text="${entity.name}">Name</td>
     <td th:text="${entity.price}">0.00</td>
-    <td th:text="${entity.brand != null && entity.brand.name != null? entity.brand.name : 'N/A'}">N/A</td>
+    <td th:text="${entity.brandId}">Brand</td>
     <td>
       <a th:href="@{/{path}/{id}(path=${basePath},id=${entity.id})}">View</a>
       <a th:href="@{/{path}/edit/{id}(path=${basePath},id=${entity.id})}">Edit</a>

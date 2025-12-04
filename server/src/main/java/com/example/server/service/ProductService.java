@@ -6,6 +6,7 @@ import com.example.server.domain.entity.Product;
 import com.example.server.domain.mapper.ProductMapper;
 import com.example.server.repository.BrandRepository;
 import com.example.server.repository.ProductRepository;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,12 @@ public class ProductService extends BaseService<Product, ProductDto, Long> {
 
     @Override
     public void beforeCreate(ProductDto dto, Product entity) {
+        Brand brand = brandRepository.findById(dto.getBrandId()).orElseThrow();
+        entity.setBrand(brand);
+    }
+
+    @Override
+    public void beforeUpdate(Long Id, ProductDto dto, Product entity) {
         Brand brand = brandRepository.findById(dto.getBrandId()).orElseThrow();
         entity.setBrand(brand);
     }
