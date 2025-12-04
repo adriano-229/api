@@ -10,8 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID extends Serializable>
-        implements CrudHooks<E, D, ID> {
+public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID extends Serializable> {
 
     protected final BaseRepository<E, ID> baseRepository;
     protected final BaseMapper<E, D> baseMapper;
@@ -68,6 +67,30 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID ex
             baseRepository.delete(entity);
             afterDelete(entity);
         });
+    }
+
+    void beforeCreate(D dto, E entity) {
+    }
+
+    void afterCreate(E entity) {
+    }
+
+    void beforeRead(ID id) {
+    }
+
+    void afterRead(E entity) {
+    }
+
+    void beforeUpdate(ID id, D dto, E entity) {
+    }
+
+    void afterUpdate(E entity) {
+    }
+
+    void beforeDelete(ID id) {
+    }
+
+    void afterDelete(E entity) {
     }
 
 }
