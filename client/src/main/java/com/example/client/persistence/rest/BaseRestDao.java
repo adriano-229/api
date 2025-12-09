@@ -7,37 +7,37 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-public abstract class BaseRestDAO<T, ID> {
+public abstract class BaseRestDao<D, ID> {
 
     protected final RestTemplate restTemplate;
     private final String resourcePath;
-    private final Class<T> dtoClass;
-    private final ParameterizedTypeReference<List<T>> listType;
+    private final Class<D> dtoClass;
+    private final ParameterizedTypeReference<List<D>> listType;
 
-    protected BaseRestDAO(RestTemplate restTemplate,
+    protected BaseRestDao(RestTemplate restTemplate,
                           String resourcePath,
-                          Class<T> dtoClass,
-                          ParameterizedTypeReference<List<T>> listType) {
+                          Class<D> dtoClass,
+                          ParameterizedTypeReference<List<D>> listType) {
         this.restTemplate = restTemplate;
         this.resourcePath = resourcePath;
         this.dtoClass = dtoClass;
         this.listType = listType;
     }
 
-    public List<T> list() {
-        ResponseEntity<List<T>> response = restTemplate.exchange(resourcePath, HttpMethod.GET, null, listType);
+    public List<D> list() {
+        ResponseEntity<List<D>> response = restTemplate.exchange(resourcePath, HttpMethod.GET, null, listType);
         return response.getBody();
     }
 
-    public T get(ID id) {
+    public D get(ID id) {
         return restTemplate.getForObject(resourcePath + "/{id}", dtoClass, id);
     }
 
-    public T create(T entity) {
+    public D create(D entity) {
         return restTemplate.postForObject(resourcePath, entity, dtoClass);
     }
 
-    public T update(ID id, T entity) {
+    public D update(ID id, D entity) {
         restTemplate.put(resourcePath + "/{id}", entity, id);
         return get(id);
     }

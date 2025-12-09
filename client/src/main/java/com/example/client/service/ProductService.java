@@ -1,13 +1,13 @@
 package com.example.client.service;
 
-import com.example.client.domain.dto.ProductDTO;
-import com.example.client.persistence.rest.ProductRestDAO;
+import com.example.client.domain.dto.ProductDto;
+import com.example.client.persistence.rest.ProductRestDao;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService extends RestCrudService<ProductDTO, Long> {
+public class ProductService extends BaseService<ProductDto, Long> {
 
-    public ProductService(ProductRestDAO productRestDAO) {
+    public ProductService(ProductRestDao productRestDAO) {
         super(productRestDAO);
     }
 }

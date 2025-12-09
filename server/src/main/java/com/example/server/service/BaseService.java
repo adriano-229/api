@@ -22,13 +22,13 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID ex
     }
 
     @Transactional(readOnly = true)
-    public List<D> readAll() {
+    public List<D> findAll() {
         List<E> entities = baseRepository.findAll();
         return baseMapper.toDtoList(entities);
     }
 
     @Transactional(readOnly = true)
-    public Optional<D> readById(ID id) {
+    public Optional<D> findById(ID id) {
         beforeRead(id);
         return baseRepository.findById(id)
                 .map(entity -> {
@@ -36,7 +36,6 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID ex
                     return baseMapper.toDto(entity);
                 });
     }
-
 
     @Transactional
     public D create(D dto) {
@@ -46,7 +45,6 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID ex
         afterCreate(saved);
         return baseMapper.toDto(saved);
     }
-
 
     @Transactional
     public Optional<D> update(ID id, D dto) {
@@ -59,7 +57,6 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID ex
         });
     }
 
-
     @Transactional
     public void deleteById(ID id) {
         beforeDelete(id);
@@ -68,6 +65,7 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, ID ex
             afterDelete(entity);
         });
     }
+
 
     void beforeCreate(D dto, E entity) {
     }

@@ -20,13 +20,13 @@ public abstract class BaseRestController<E extends BaseEntity, D extends BaseDto
 
     @GetMapping
     public  ResponseEntity<List<D>> findAll() {
-        List<D> entities = baseService.readAll();
+        List<D> entities = baseService.findAll();
         return ResponseEntity.ok(entities);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<D> findById(@PathVariable ID id) {
-        Optional<D> entity = baseService.readById(id);
+        Optional<D> entity = baseService.findById(id);
         return entity.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -45,7 +45,7 @@ public abstract class BaseRestController<E extends BaseEntity, D extends BaseDto
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable ID id) {
-        Optional<D> existing = baseService.readById(id);
+        Optional<D> existing = baseService.findById(id);
         if (existing.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

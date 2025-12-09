@@ -29,7 +29,7 @@ public abstract class BaseController<E extends BaseEntity, D extends BaseDto, ID
 
     @GetMapping
     public String listAll(Model model) {
-        List<D> entities = baseService.readAll();
+        List<D> entities = baseService.findAll();
         model.addAttribute("entities", entities);
         model.addAttribute("entityName", entityName);
         model.addAttribute("basePath", basePath);
@@ -38,7 +38,7 @@ public abstract class BaseController<E extends BaseEntity, D extends BaseDto, ID
 
     @GetMapping("/{id}")
     public String view(@PathVariable("id") ID id, Model model, RedirectAttributes redirectAttributes) {
-        Optional<D> entity = baseService.readById(id);
+        Optional<D> entity = baseService.findById(id);
 
         if (entity.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", entityName + " not found");
@@ -65,7 +65,7 @@ public abstract class BaseController<E extends BaseEntity, D extends BaseDto, ID
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") ID id, Model model, RedirectAttributes redirectAttributes) {
-        Optional<D> entity = baseService.readById(id);
+        Optional<D> entity = baseService.findById(id);
 
         if (entity.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", entityName + " not found");
@@ -78,7 +78,6 @@ public abstract class BaseController<E extends BaseEntity, D extends BaseDto, ID
         model.addAttribute("isReadOnly", false);
         model.addAttribute("isEdit", true);
         return template("form");
-        // TODO: centralize exception handling using @ControllerAdvice
     }
 
     @PostMapping
@@ -103,7 +102,7 @@ public abstract class BaseController<E extends BaseEntity, D extends BaseDto, ID
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") ID id, RedirectAttributes redirectAttributes) {
-        Optional<D> existing = baseService.readById(id);
+        Optional<D> existing = baseService.findById(id);
 
         if (existing.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", entityName + " not found");

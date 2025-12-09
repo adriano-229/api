@@ -1,17 +1,17 @@
 package com.example.client.persistence.rest;
 
-import com.example.client.domain.dto.ProductDTO;
+import com.example.client.domain.dto.ProductDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class ProductRestDAO extends BaseRestDAO<ProductDTO, Long> {
+public class ProductRestDao extends BaseRestDao<ProductDto, Long> {
 
-    public ProductRestDAO(RestTemplate restTemplate) {
+    public ProductRestDao(RestTemplate restTemplate) {
         super(restTemplate,
                 "/products",
-                ProductDTO.class,
+                ProductDto.class,
                 new ParameterizedTypeReference<>() {
                 });
     }
