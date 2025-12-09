@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: head(${entityName} + ' List')"></head>
+<head th:replace="~{fragments/layout :: head(${entityName} + ' List')}"></head>
 <body>
-<header th:replace="fragments/layout :: header(${entityName} + ' List')"></header>
+<header th:replace="~{fragments/layout :: header(${entityName} + ' List')}"></header>
+<div th:if="${error}" class="error" th:text="${error}"></div>
 <ul>
-  <li><a th:href="@{/categories}">Categories</a></li>
   <li><a th:href="@{/brands}">Brands</a></li>
   <li><a th:href="@{/products}">Products</a></li>
 </ul>
-<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="~{fragments/layout :: footer}"></div>
 </body>
 </html>
