@@ -1,10 +1,8 @@
-### Minimalistic RESTful API
+### Minimalistic RESTful API - Version 1.0
 
-This project is a simple implementation of a RESTful API using the client-server architecture. On the server side
-there is both a web view and a RESTful API, the former is the same as the clients whereas the latter is the one the  
-that allows clients to perform CRUD (Create, Read, Update, Delete)
-operations
-on brands and products.
+This project is a **Version 1** implementation of a simple RESTful API using the client-server architecture. On the server side
+there is both a web view and a RESTful API, the former is the same as the clients whereas the latter is the one  
+that allows clients to perform CRUD (Create, Read, Update, Delete) operations on brands and products.
 
 #### Class Diagram
 
@@ -23,13 +21,74 @@ on brands and products.
 On creation, a product must be associated with an existing brand. However, if the brand is deleted, the product remains
 in the system with a null brand reference.
 
-#### API Endpoints
+#### API Endpoints (v1)
 
 To guarantee the proper functioning of the API, the following endpoints are provided:
 
-For **Brands**
+**Brands**
   - `GET /api/v1/brands`: Retrieve a list of all brands.
   - `GET /api/v1/brands/{id}`: Retrieve details of a specific brand by its ID.
   - `POST /api/v1/brands`: Create a new brand.
   - `PUT /api/v1/brands/{id}`: Update an existing brand by its ID.
   - `DELETE /api/v1/brands/{id}`: Delete a brand by its ID.
+
+**Products**
+  - `GET /api/v1/products`: Retrieve a list of all products.
+  - `GET /api/v1/products/{id}`: Retrieve details of a specific product by its ID.
+  - `POST /api/v1/products`: Create a new product.
+  - `PUT /api/v1/products/{id}`: Update an existing product by its ID.
+  - `DELETE /api/v1/products/{id}`: Delete a product by its ID.
+
+#### Future Features (v2+)
+
+The following features are planned for future versions:
+
+**Authentication & Authorization**
+- JWT-based authentication system
+- Role-based access control (Admin, Manager, User)
+- API key management for third-party integrations
+
+**Enhanced Product Management**
+- Product categories and subcategories
+- Product images and media management
+- Inventory tracking with stock levels
+- Product variants (size, color, etc.)
+- Bulk operations for products
+
+**Advanced Brand Features**
+- Brand logos and media assets
+- Brand descriptions and metadata
+- Brand hierarchy (parent/child brands)
+
+**Data & Analytics**
+- Product sales analytics
+- Brand performance metrics
+- Export functionality (CSV, Excel, PDF)
+- Advanced filtering and search capabilities
+
+**API Enhancements**
+- Pagination for large datasets
+- Sorting and advanced filtering
+- GraphQL support
+- Webhook notifications
+- Rate limiting and throttling
+
+**User Interface**
+- Advanced dashboard with charts and graphs
+- Drag-and-drop file uploads
+- Real-time notifications
+- Mobile-responsive improvements
+- Bulk editing capabilities
+
+**Integration Features**
+- Third-party e-commerce platform integrations
+- External API connectors
+- Data import/export from various formats
+- Automated synchronization tools
+
+**Performance & Scalability**
+- Redis caching layer
+- Database optimization and indexing
+- Microservices architecture migration
+- Container orchestration support
+
