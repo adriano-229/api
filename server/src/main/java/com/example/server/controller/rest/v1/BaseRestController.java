@@ -13,7 +13,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-// TODO: clean specific controllers, ("") mandatory, review openjdk if it was needed, clean pom's, try cleaning code)
 
 public abstract class BaseRestController<E extends BaseEntity, D extends BaseDto, ID extends Serializable> {
     protected final BaseService<E, D, ID> baseService;
